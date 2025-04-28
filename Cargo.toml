@@ -26,6 +26,7 @@ esp-idf-svc = { version = "0.51", features = ["critical-section", "embassy-time-
 thiserror = "2.0"
 slint = { version = "1.11", default-features = false, features = ["compat-1-2", "unsafe-single-threaded", "libm", "renderer-software"] }
 gt911 = "0.3"
+embedded-svc = "0.28"
 
 [build-dependencies]
 embuild = "0.33"
