@@ -4,11 +4,6 @@ version = "0.1.0"
 authors = ["Shantanu Goel <shantanu.goel@gmail.com>"]
 edition = "2021"
 resolver = "2"
-rust-version = "1.77"
-
-[[bin]]
-name = "waveshare-esp32-s3-lcd-7-bsp-rs"
-harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
 
 [profile.release]
 opt-level = "s"
@@ -25,6 +20,7 @@ experimental = ["esp-idf-svc/experimental"]
 [dependencies]
 log = "0.4"
 esp-idf-svc = { version = "0.51", features = ["critical-section", "embassy-time-driver", "embassy-sync"] }
+thiserror = "2.0"
 
 [build-dependencies]
 embuild = "0.33"
