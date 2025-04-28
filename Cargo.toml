@@ -5,6 +5,9 @@ authors = ["Shantanu Goel <shantanu.goel@gmail.com>"]
 edition = "2021"
 resolver = "2"
 
+[lib]
+harness = false
+
 [profile.release]
 opt-level = "s"
 
