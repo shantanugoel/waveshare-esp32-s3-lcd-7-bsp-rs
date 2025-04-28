@@ -5,6 +5,7 @@ use esp_idf_svc::{
     wifi::{ClientConfiguration, Configuration::Client, EspWifi},
 };
 use esp_idf_svc::hal::sys::EspError;
+use std::{thread::sleep, time::Duration};
 
 #[derive(Debug, thiserror::Error)]
 pub enum WifiError {
@@ -20,6 +21,8 @@ pub enum WifiError {
     InvalidPasswordString,
     #[error("Failed to connect wifi")]
     ConnectWifi(#[source] EspError),
+    #[error("Failed to wait for wifi connection")]
+    WaitNetifUp(#[source] EspError),
 }
 
 pub fn init<'a>(
@@ -44,3 +47,10 @@ pub fn connect(wifi_driver: &mut EspWifi, ssid: &str, password: &str) -> Result<
     Ok(())
 }
 
+pub fn wait_for_connection(wifi_driver: &EspWifi) -> Result<(), WifiError> {
+    while !wifi_driver.is_connected().map_err(|e| WifiError::WaitNetifUp(e))? {
+        log::info!("Waiting for wifi connection...");
+        sleep(Duration::from_millis(100));
+    }
+    Ok(())
+}
